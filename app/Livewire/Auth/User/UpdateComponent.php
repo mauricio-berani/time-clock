@@ -38,6 +38,8 @@ class UpdateComponent extends BaseComponent
     public $item = null;
     public $roleOptions;
     public User $loggedUser;
+    public $filter_start_date;
+    public $filter_end_date;
 
     protected function rules(): array
     {
@@ -162,6 +164,25 @@ class UpdateComponent extends BaseComponent
         }
     }
 
+    public function getFilteredTimeRecordsProperty()
+    {
+        if (!$this->loggedUser->isAdmin()) {
+            return null;
+        }
+
+        $query = $this->item->timeRecords()->orderBy('recorded_at', 'desc');
+
+        if ($this->filter_start_date) {
+            $query->whereDate('recorded_at', '>=', $this->filter_start_date);
+        }
+
+        if ($this->filter_end_date) {
+            $query->whereDate('recorded_at', '<=', $this->filter_end_date);
+        }
+
+        return $query->paginate(10);
+    }
+
     public function mount(Model $user): void
     {
         $this->authorize('update', Model::class);
@@ -179,9 +200,7 @@ class UpdateComponent extends BaseComponent
     {
         return view('livewire.auth.user.form', [
             'item' => $this->item,
-            'timeRecords' => $this->loggedUser->isAdmin() ?
-                $this->item->timeRecords()->orderBy('recorded_at', 'desc')->paginate(10) :
-                null,
+            'timeRecords' => $this->getFilteredTimeRecordsProperty(),
             'roleOptions' => $this->roleOptions,
             'breadcrumbs' => $this->getBreadcrumbs(),
         ]);

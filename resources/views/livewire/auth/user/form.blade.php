@@ -94,6 +94,23 @@
         @if (isset($timeRecords) && $timeRecords->isNotEmpty())
         <div class="mt-8">
             <h3 class="text-lg font-bold mb-4">{{ __('interface.time_records') }}</h3>
+
+            <div class="mb-4 flex gap-4">
+                <div>
+                    <label for="filter_start_date" class="block text-sm font-medium text-gray-700">Data Inicial</label>
+                    <input type="date" id="filter_start_date" wire:model.defer="filter_start_date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="filter_end_date" class="block text-sm font-medium text-gray-700">Data Final</label>
+                    <input type="date" id="filter_end_date" wire:model.defer="filter_end_date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="self-end">
+                    <button wire:click="$refresh" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+                        Filtrar
+                    </button>
+                </div>
+            </div>
+
             <table class="w-full table-auto border-collapse border border-gray-300">
                 <thead>
                     <tr class="bg-gray-100">
