@@ -48,7 +48,7 @@ class UpdateComponent extends BaseComponent
                 'email',
                 Rule::unique('users', 'email')->ignore($this->itemId)
             ],
-            'document'              => 'required|cpf',
+            'document'              => 'required|cpf|unique:users,document',
             'job_title'             => 'nullable',
             'birthday'              => 'nullable',
             'password'              => 'nullable|min:6|confirmed',
@@ -98,7 +98,7 @@ class UpdateComponent extends BaseComponent
         }
     }
 
-    public function setAddress(array $data)
+    public function setAddress(array $data): void
     {
         $this->item->address()->updateOrCreate(
             ['user_id' => $this->item->id],

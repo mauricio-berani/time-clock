@@ -41,7 +41,7 @@ class CreateComponent extends BaseComponent
         return [
             'name'                  => 'required|min:3',
             'email'                 => 'required|email|unique:users,email',
-            'document'              => 'required|cpf',
+            'document'              => 'required|cpf|unique:users,document',
             'job_title'             => 'nullable',
             'birthday'              => 'nullable',
             'password'              => 'required|min:6|confirmed',
@@ -79,6 +79,7 @@ class CreateComponent extends BaseComponent
             data_forget($data, 'user_role');
             $item = Model::create($data);
             $item->assignRole($role);
+            $this->setAddress($item, $data);
 
             DB::commit();
 
@@ -93,6 +94,21 @@ class CreateComponent extends BaseComponent
             logger()->error($error->getMessage());
             $this->error(__('feedback.create_error'), position: 'toast-top');
         }
+    }
+
+    public function setAddress(Model $item, array $data): void
+    {
+        $item->address()->create(
+            [
+                'zip_code'     => $data['zip_code'],
+                'state'        => $data['state'],
+                'city'         => $data['city'],
+                'neighborhood' => $data['neighborhood'],
+                'street'       => $data['street'],
+                'number'       => $data['number'],
+                'complement'   => $data['complement'],
+            ]
+        );
     }
 
     public function fetchAddress()
