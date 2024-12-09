@@ -32,7 +32,7 @@ class User extends Authenticatable
         'document',
         'birthday',
         'job_title',
-        'maanger_id',
+        'manager_id',
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',
