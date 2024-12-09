@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Table pagination: active page highlight */
+.mary-table-pagination span[aria-current="page"]>span {
+    @apply bg-primary text-base-100
+}
+
+/* Table pagination: for dark mode*/
+.mary-table-pagination span[aria-disabled="true"] span {
+    @apply bg-inherit
+}
+
+/* Table pagination: for dark mode */
+.mary-table-pagination button {
+    @apply bg-base-100
+}
+
+.floating-alert {
+    position: fixed;
+    top: 20px;
+    /* Distância do topo da tela */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    /* Garante que o alerta esteja acima de outros elementos */
+    width: 90%;
+    /* Ajuste a largura conforme necessário */
+    max-width: 600px;
+    /* Define um limite máximo para a largura */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Adiciona uma sombra para destaque */
+    text-align: center;
+    /* Centraliza o texto horizontalmente */
+    display: flex;
+    justify-content: center;
+    /* Centraliza o conteúdo horizontalmente */
+    align-items: center;
+    /* Centraliza o conteúdo verticalmente */
+    padding: 10px;
+    /* Adiciona um pouco de espaço interno */
+    animation: fadeOut 4.5s 0.5s forwards;
+    /* Animação de desvanecimento rápido */
+}
+
+.badge-pending {
+    background-color: #e3af00 !important;
+}
+
+.badge-canceled {
+    background-color: #d47b7b !important;
+}
+
+.badge-done {
+    background-color: #81c784 !important;
+}
+
+.app-navbar {
+    width: auto !important;
+    padding: 0 !important;
+    min-height: 56px !important;
+    height: 56px !important;
+}
+
+.menu-brand {
+    height: 56px !important;
+}
+
+.table-title {
+    display: block;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #303548;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+.username {
+    color: #404e67;
+    font-weight: 400;
+    font-size: .875em;
+}
+
+/* Definição da animação de desvanecimento rápido */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
